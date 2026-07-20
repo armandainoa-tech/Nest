@@ -29,7 +29,10 @@ const loginScreen = document.getElementById("login-screen");
 const appScreen = document.getElementById("app-screen");
 
 
+const nameInput = document.getElementById("name");
+
 const email = document.getElementById("email");
+
 const password = document.getElementById("password");
 
 
@@ -73,7 +76,7 @@ doc(db,"users",user.uid),
 
 {
 
-name:"Armanda",
+name:nameInput.value,
 
 email:user.email,
 
