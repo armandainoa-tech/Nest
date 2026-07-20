@@ -1,189 +1,328 @@
+/* Nest 🏡 Cyberpunk Style */
+
+
 * {
     box-sizing: border-box;
-    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", Arial, sans-serif;
+    font-family: Arial, sans-serif;
 }
+
 
 
 body {
 
-    margin: 0;
-    background: #070707;
-    color: #ffffff;
+    margin:0;
+
+    min-height:100vh;
+
+    background:#050505;
+
+    color:white;
 
 }
+
+
+
 
 
 .app {
 
-    max-width: 500px;
-    min-height: 100vh;
-    margin: auto;
-    padding: 20px;
-    padding-bottom: 100px;
+    width:100%;
+
+    max-width:450px;
+
+    margin:auto;
+
+    min-height:100vh;
+
+    padding:20px;
 
 }
 
 
-/* Header */
+
+
+
+
+
+.logo {
+
+    text-align:center;
+
+    margin-top:40px;
+
+}
+
+
+
+.logo h1 {
+
+    font-size:42px;
+
+    letter-spacing:5px;
+
+}
+
+
+
+.logo p {
+
+    color:#00ffff;
+
+}
+
+
+
+
+
+
 
 header {
 
-    text-align: center;
-    margin-top: 20px;
+    text-align:center;
+
+    margin-bottom:25px;
 
 }
+
 
 
 header h1 {
 
-    letter-spacing: 6px;
-    font-size: 32px;
-    margin-bottom: 5px;
-
-    text-shadow:
-    0 0 10px rgba(0,255,255,.6);
+    letter-spacing:4px;
 
 }
 
 
-header p {
 
-    color: #888;
-    margin-top: 0;
+
+
+
+
+.card {
+
+    background:#0d0d0d;
+
+    border:1px solid #222;
+
+    border-radius:18px;
+
+    padding:20px;
+
+    margin-bottom:20px;
 
 }
+
+
+
+
+
+
+
+input,
+select {
+
+
+    width:100%;
+
+    padding:15px;
+
+    margin-top:12px;
+
+    background:#050505;
+
+    border:1px solid #333;
+
+    border-radius:12px;
+
+    color:white;
+
+    font-size:16px;
+
+}
+
+
+
+
+
+
+
+button {
+
+
+    width:100%;
+
+    padding:15px;
+
+    margin-top:15px;
+
+    border:none;
+
+    border-radius:12px;
+
+    background:#00ffff;
+
+    color:black;
+
+    font-weight:bold;
+
+    font-size:16px;
+
+    cursor:pointer;
+
+}
+
+
+
+
+
+button:active {
+
+    transform:scale(.98);
+
+}
+
+
+
+
+
+
+
+.secondary {
+
+    background:#111;
+
+    color:white;
+
+    border:1px solid #00ffff;
+
+}
+
+
+
+
+
+
+
+#message {
+
+    text-align:center;
+
+    color:#00ffff;
+
+}
+
+
+
+
 
 
 
 /* Pages */
 
+
 .page {
 
-    display: none;
+    display:none;
 
 }
 
 
 .page.active {
 
-    display: block;
+    display:block;
 
 }
 
 
 
-/* Cards */
-
-.card {
-
-    background: #111111;
-
-    border: 1px solid #222;
-
-    border-radius: 20px;
-
-    padding: 20px;
-
-    margin-top: 20px;
 
 
-    box-shadow:
 
-    0 0 15px rgba(0,255,255,.08);
+
+/* Bills */
+
+
+.bill {
+
+
+    background:#0d0d0d;
+
+    border:1px solid #222;
+
+    border-radius:15px;
+
+    padding:15px;
+
+    margin-top:15px;
+
 
 }
 
 
 
-.card h1 {
+.bill h3 {
 
-    font-size: 38px;
-
-    margin: 10px 0;
-
-}
-
-
-.card h3 {
-
-    color:#aaa;
-
-    font-weight:400;
+    margin-top:0;
 
 }
 
 
 
-/* Add Button */
+.bill button {
 
-.add-btn {
-
-    width:100%;
-
-    margin-top:20px;
-
-    padding:16px;
-
-    border-radius:18px;
-
-    border:none;
-
-    background:#00ffff;
-
-    color:#000;
-
-    font-size:16px;
-
-    font-weight:bold;
-
-    box-shadow:
-
-    0 0 15px rgba(0,255,255,.5);
+    margin-top:10px;
 
 }
+
+
+
+
+
+
+
+.hidden {
+
+    display:none;
+
+}
+
+
+
+
+
 
 
 
 /* Bottom Navigation */
 
+
 nav {
+
 
     position:fixed;
 
-    bottom:20px;
+    bottom:15px;
 
     left:50%;
 
     transform:translateX(-50%);
 
-
     width:90%;
 
-    max-width:450px;
-
-
-    background:#111;
-
-
-    border:
-
-    1px solid #222;
-
-
-    border-radius:30px;
-
-
-    padding:12px;
-
+    max-width:400px;
 
     display:flex;
 
-    justify-content:space-around;
+    gap:10px;
 
+    background:#0d0d0d;
 
-    box-shadow:
+    padding:10px;
 
-    0 0 20px rgba(0,255,255,.15);
+    border-radius:20px;
+
+    border:1px solid #222;
+
 
 }
 
@@ -191,62 +330,41 @@ nav {
 
 nav button {
 
-    background:none;
 
-    border:none;
+    flex:1;
 
-    font-size:24px;
+    background:#111;
 
-    cursor:pointer;
+    color:white;
 
-}
+    margin:0;
 
-
-/* Small futuristic glow */
-
-button:active {
-
-    transform:scale(.95);
+    padding:12px;
 
 }
 
-input {
 
-width:100%;
+
+
+
+
+
+
+@media(max-width:500px){
+
+
+.app{
 
 padding:15px;
 
-margin-top:15px;
-
-background:#111;
-
-border:1px solid #333;
-
-border-radius:15px;
-
-color:white;
-
-font-size:16px;
-
 }
 
 
-.secondary-btn {
+.logo h1{
 
-width:100%;
+font-size:34px;
 
-margin-top:15px;
+}
 
-padding:15px;
-
-border-radius:15px;
-
-background:#151515;
-
-border:1px solid #00ffff;
-
-color:white;
-
-font-weight:bold;
 
 }

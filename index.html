@@ -4,7 +4,6 @@
 <head>
 
 <meta charset="UTF-8">
-
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>Nest 🏡</title>
@@ -22,18 +21,18 @@
 <div class="app">
 
 
-<!-- LOGIN -->
+<!-- LOGIN SCREEN -->
 
 <section id="login-screen">
 
 
-<header>
+<div class="logo">
 
 <h1>NEST 🏡</h1>
 
 <p>Armanda & Nick</p>
 
-</header>
+</div>
 
 
 
@@ -43,11 +42,10 @@
 <h2>Welcome Back</h2>
 
 
-<input
+<input 
 id="email"
 type="email"
 placeholder="Email">
-
 
 
 <input
@@ -57,22 +55,14 @@ placeholder="Password">
 
 
 
-<button 
-id="login-btn"
-class="add-btn">
-
+<button id="login-btn">
 Login
-
 </button>
 
 
 
-<button
-id="signup-btn"
-class="secondary-btn">
-
+<button id="signup-btn">
 Create Account
-
 </button>
 
 
@@ -91,11 +81,9 @@ Create Account
 
 
 
+<!-- APP SCREEN -->
 
-<!-- MAIN APP -->
-
-<section id="app-screen" style="display:none;">
-
+<section id="app-screen">
 
 
 <header>
@@ -113,19 +101,18 @@ Welcome
 
 
 
-<!-- HOME -->
+<!-- HOME PAGE -->
 
-<section id="home" class="page active">
-
-
-<h2>Home</h2>
+<div id="home" class="page active">
 
 
 <div class="card">
 
 <h3>Remaining</h3>
 
-<h1>$0.00</h1>
+<h1 id="remaining">
+$0.00
+</h1>
 
 </div>
 
@@ -136,12 +123,17 @@ Welcome
 
 <h3>Upcoming Bills</h3>
 
-<p>No bills yet</p>
+<div id="upcoming">
+
+No bills yet
 
 </div>
 
 
-</section>
+</div>
+
+
+</div>
 
 
 
@@ -150,36 +142,24 @@ Welcome
 
 
 
-<!-- BILLS -->
+<!-- BILLS PAGE -->
 
-<section id="bills" class="page">
+
+<div id="bills" class="page">
 
 
 <h2>Bills</h2>
 
 
 
-<button 
-class="add-btn"
-id="open-bill">
-
+<button id="open-bill">
 + Add Bill
-
 </button>
 
 
 
 
-
-<div 
-id="bill-form"
-class="card"
-style="display:none;">
-
-
-
-<h3>Add New Bill</h3>
-
+<div id="bill-form" class="card hidden">
 
 
 <input
@@ -203,16 +183,13 @@ type="date">
 
 <select id="bill-person">
 
-
 <option>
 Armanda
 </option>
 
-
 <option>
 Nick
 </option>
-
 
 <option>
 Both
@@ -223,16 +200,9 @@ Both
 
 
 
-
-
-<button
-id="save-bill"
-class="add-btn">
-
+<button id="save-bill">
 Save Bill
-
 </button>
-
 
 
 </div>
@@ -246,7 +216,7 @@ Save Bill
 </div>
 
 
-</section>
+</div>
 
 
 
@@ -257,21 +227,22 @@ Save Bill
 
 <!-- CALENDAR -->
 
-<section id="calendar" class="page">
+<div id="calendar" class="page">
 
 
 <h2>Calendar</h2>
 
 
-
 <div class="card">
 
-<p>Your bills will appear here.</p>
+<p>
+Bills calendar coming soon 🏡
+</p>
 
 </div>
 
 
-</section>
+</div>
 
 
 
@@ -282,38 +253,29 @@ Save Bill
 
 <!-- SETTINGS -->
 
-<section id="settings" class="page">
+<div id="settings" class="page">
 
 
 <h2>Settings</h2>
-
 
 
 <div class="card">
 
 
 <h3 id="account-name">
-
 Account
-
 </h3>
 
 
-
-<button
-id="logout-btn"
-class="secondary-btn">
-
+<button id="logout-btn">
 Logout
-
 </button>
-
 
 
 </div>
 
 
-</section>
+</div>
 
 
 
@@ -328,33 +290,22 @@ Logout
 
 
 <button onclick="showPage('home')">
-
 🏠
-
 </button>
-
 
 
 <button onclick="showPage('bills')">
-
 💳
-
 </button>
-
 
 
 <button onclick="showPage('calendar')">
-
 📅
-
 </button>
 
 
-
 <button onclick="showPage('settings')">
-
 ⚙️
-
 </button>
 
 

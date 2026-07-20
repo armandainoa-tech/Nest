@@ -1,4 +1,4 @@
-// Nest App Script 🏡
+// Nest 🏡 Script
 
 import { auth, db } from "./firebase.js";
 
@@ -12,81 +12,97 @@ import {
 
 import {
     doc,
-    getDoc,
     setDoc,
+    getDoc,
     collection,
     addDoc,
     onSnapshot,
-    query,
-    orderBy,
     updateDoc,
     deleteDoc
 } from "https://www.gstatic.com/firebasejs/12.16.0/firebase-firestore.js";
 
 
 
+// Elements
 
-// LOGIN ELEMENTS
+const loginScreen = document.getElementById("login-screen");
+const appScreen = document.getElementById("app-screen");
 
-const emailInput = document.getElementById("email");
-const passwordInput = document.getElementById("password");
+
+const email = document.getElementById("email");
+const password = document.getElementById("password");
+
 
 const loginBtn = document.getElementById("login-btn");
 const signupBtn = document.getElementById("signup-btn");
 
+
 const message = document.getElementById("message");
 
-const loginScreen = document.getElementById("login-screen");
-const appScreen = document.getElementById("app-screen");
+
+let currentUser = null;
+
 
 
 
 
 // CREATE ACCOUNT
 
-signupBtn.addEventListener("click", async () => {
-
-    const email = emailInput.value;
-    const password = passwordInput.value;
+signupBtn.addEventListener("click", async()=>{
 
 
-    try {
-
-        const userCredential =
-        await createUserWithEmailAndPassword(
-            auth,
-            email,
-            password
-        );
+try{
 
 
-        const user = userCredential.user;
+const userCredential =
+await createUserWithEmailAndPassword(
+auth,
+email.value,
+password.value
+);
 
 
-        await setDoc(
-            doc(db,"users",user.uid),
-            {
 
-                name:"Armanda",
-
-                household:"Nest",
-
-                email:email
-
-            }
-        );
+const user = userCredential.user;
 
 
-        message.innerText =
-        "Nest account created 🏡";
+
+await setDoc(
+
+doc(db,"users",user.uid),
+
+{
+
+name:"Armanda",
+
+email:user.email,
+
+household:"Nest"
+
+}
+
+);
 
 
-    } catch(error){
 
-        message.innerText =
-        error.message;
+message.innerText =
+"Account created 🏡";
 
-    }
+
+
+}
+
+
+catch(error){
+
+
+message.innerText =
+error.message;
+
+
+}
+
+
 
 });
 
@@ -98,37 +114,37 @@ signupBtn.addEventListener("click", async () => {
 
 // LOGIN
 
+
 loginBtn.addEventListener("click", async()=>{
 
 
-    const email = emailInput.value;
-
-    const password = passwordInput.value;
+try{
 
 
+await signInWithEmailAndPassword(
 
-    try{
+auth,
 
+email.value,
 
-        await signInWithEmailAndPassword(
-            auth,
-            email,
-            password
-        );
+password.value
 
-
-        message.innerText =
-        "Welcome back 🏡";
+);
 
 
-    }catch(error){
+
+}
 
 
-        message.innerText =
-        error.message;
+catch(error){
 
 
-    }
+message.innerText =
+error.message;
+
+
+}
+
 
 
 });
@@ -143,64 +159,76 @@ loginBtn.addEventListener("click", async()=>{
 
 // AUTH CHECK
 
+
 onAuthStateChanged(auth, async(user)=>{
 
 
-    if(user){
+if(user){
 
 
-        loginScreen.style.display="none";
-
-        appScreen.style.display="block";
+currentUser = user;
 
 
+loginScreen.style.display="none";
 
-        const userSnap =
-        await getDoc(
-            doc(db,"users",user.uid)
-        );
+appScreen.style.display="block";
 
 
 
-        if(userSnap.exists()){
+const userSnap =
+await getDoc(
 
+doc(
+db,
+"users",
+user.uid
+)
 
-            const data =
-            userSnap.data();
-
-
-
-            document.getElementById("user-name")
-            .innerText =
-            "Welcome, "
-            + data.name
-            + " 🏡";
+);
 
 
 
-            document.getElementById("account-name")
-            .innerText =
-            data.name;
+if(userSnap.exists()){
 
 
-        }
+const data =
+userSnap.data();
 
 
 
-        loadBills();
+document.getElementById("user-name")
+.innerText =
+"Welcome, "
++ data.name;
 
 
-    }
 
-    else{
-
-
-        loginScreen.style.display="block";
-
-        appScreen.style.display="none";
+document.getElementById("account-name")
+.innerText =
+data.name;
 
 
-    }
+}
+
+
+
+loadBills();
+
+
+
+}
+
+
+else{
+
+
+loginScreen.style.display="block";
+
+appScreen.style.display="none";
+
+
+}
+
 
 
 });
@@ -216,36 +244,61 @@ onAuthStateChanged(auth, async(user)=>{
 // LOGOUT
 
 
-const logoutBtn =
-document.getElementById("logout-btn");
+document
+.getElementById("logout-btn")
+.addEventListener("click",()=>{
 
 
-
-if(logoutBtn){
-
-
-logoutBtn.addEventListener(
-"click",
-async()=>{
-
-
-await signOut(auth);
+signOut(auth);
 
 
 });
+
+
+
+
+
+
+
+
+
+// PAGE SWITCHING
+
+
+function showPage(page){
+
+
+document
+.querySelectorAll(".page")
+.forEach(p=>{
+
+
+p.classList.remove("active");
+
+
+});
+
+
+document
+.getElementById(page)
+.classList.add("active");
 
 
 }
 
 
 
+window.showPage = showPage;
 
 
 
 
 
 
-// OPEN BILL FORM
+
+
+
+// BILL FORM
 
 
 const openBill =
@@ -257,21 +310,13 @@ document.getElementById("bill-form");
 
 
 
-if(openBill){
+openBill.addEventListener("click",()=>{
 
 
-openBill.addEventListener(
-"click",
-()=>{
-
-
-billForm.style.display="block";
+billForm.classList.toggle("hidden");
 
 
 });
-
-
-}
 
 
 
@@ -284,77 +329,63 @@ billForm.style.display="block";
 // SAVE BILL
 
 
-const saveBill =
-document.getElementById("save-bill");
+document
+.getElementById("save-bill")
+.addEventListener("click",async()=>{
 
 
-
-if(saveBill){
-
-
-saveBill.addEventListener(
-"click",
-async()=>{
+const bill = {
 
 
-const name =
-document.getElementById("bill-name").value;
+name:
+document.getElementById("bill-name").value,
 
 
-const amount =
-document.getElementById("bill-amount").value;
+amount:
+Number(
+document.getElementById("bill-amount").value
+),
 
 
-const date =
-document.getElementById("bill-date").value;
+dueDate:
+document.getElementById("bill-date").value,
 
 
-const person =
-document.getElementById("bill-person").value;
+paid:false,
+
+
+paidBy:
+document.getElementById("bill-person").value
+
+
+};
 
 
 
 await addDoc(
 
 collection(
+
 db,
+
 "households",
+
 "Nest",
+
 "bills"
+
 ),
 
-{
-
-
-name:name,
-
-amount:Number(amount),
-
-dueDate:date,
-
-paid:false,
-
-paidBy:person
-
-
-}
+bill
 
 );
 
 
 
-document.getElementById("bill-name").value="";
-document.getElementById("bill-amount").value="";
-document.getElementById("bill-date").value="";
-
-
-billForm.style.display="none";
+billForm.classList.add("hidden");
 
 
 });
-
-
-}
 
 
 
@@ -371,34 +402,38 @@ function loadBills(){
 
 
 
-const billsRef =
-collection(
+const bills = collection(
+
 db,
+
 "households",
+
 "Nest",
+
 "bills"
+
 );
 
 
 
-const q =
-query(
-billsRef,
-orderBy("dueDate")
-);
+onSnapshot(bills,(snapshot)=>{
 
-
-
-
-
-onSnapshot(q,(snapshot)=>{
 
 
 const list =
 document.getElementById("bill-list");
 
 
+const upcoming =
+document.getElementById("upcoming");
+
+
 list.innerHTML="";
+
+
+let remaining = 0;
+
+let upcomingHTML="";
 
 
 
@@ -407,6 +442,14 @@ snapshot.forEach((item)=>{
 
 const bill =
 item.data();
+
+
+
+if(!bill.paid){
+
+remaining += bill.amount;
+
+}
 
 
 
@@ -420,35 +463,23 @@ div.className="bill";
 
 div.innerHTML = `
 
-
 <h3>${bill.name}</h3>
 
+<p>$${bill.amount}</p>
 
-<p>
-$${bill.amount}
-</p>
+<p>Due: ${bill.dueDate}</p>
 
-
-<p>
-Due: ${bill.dueDate}
-</p>
+<p>Paid by: ${bill.paidBy}</p>
 
 
-<p>
-Paid by: ${bill.paidBy}
-</p>
-
-
-
-<button onclick="togglePaid('${item.id}', ${bill.paid})">
+<button onclick="togglePaid('${item.id}',${bill.paid})">
 
 ${bill.paid ? "✅ Paid" : "⬜ Mark Paid"}
 
 </button>
 
 
-
-<button onclick="deleteBill('${item.id}')">
+<button onclick="removeBill('${item.id}')">
 
 🗑 Delete
 
@@ -463,7 +494,31 @@ list.appendChild(div);
 
 
 
+upcomingHTML +=
+
+`
+
+<p>
+${bill.name} - $${bill.amount}
+</p>
+
+`;
+
+
+
 });
+
+
+
+document.getElementById("remaining")
+.innerText =
+"$" + remaining.toFixed(2);
+
+
+
+upcoming.innerHTML =
+upcomingHTML || "No bills yet";
+
 
 
 });
@@ -488,11 +543,17 @@ async function togglePaid(id,status){
 await updateDoc(
 
 doc(
+
 db,
+
 "households",
+
 "Nest",
+
 "bills",
+
 id
+
 ),
 
 {
@@ -519,17 +580,23 @@ paid:!status
 // DELETE BILL
 
 
-async function deleteBill(id){
+async function removeBill(id){
 
 
 await deleteDoc(
 
 doc(
+
 db,
+
 "households",
+
 "Nest",
+
 "bills",
+
 id
+
 )
 
 );
@@ -539,38 +606,6 @@ id
 
 
 
-
-
-
-
-
-// PAGE SWITCHING
-
-
-function showPage(page){
-
-
-document.querySelectorAll(".page")
-.forEach(section=>{
-
-
-section.classList.remove("active");
-
-
-});
-
-
-
-document.getElementById(page)
-.classList.add("active");
-
-
-}
-
-
-
-window.showPage = showPage;
-
 window.togglePaid = togglePaid;
 
-window.deleteBill = deleteBill;
+window.removeBill = removeBill;
