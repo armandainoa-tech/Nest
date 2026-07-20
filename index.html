@@ -4,6 +4,7 @@
 <head>
 
 <meta charset="UTF-8">
+
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>Nest 🏡</title>
@@ -21,6 +22,8 @@
 <div class="app">
 
 
+<!-- LOGIN -->
+
 <section id="login-screen">
 
 
@@ -33,31 +36,45 @@
 </header>
 
 
+
 <div class="card">
+
 
 <h2>Welcome Back</h2>
 
 
-<input 
+<input
 id="email"
 type="email"
 placeholder="Email">
 
 
-<input 
+
+<input
 id="password"
 type="password"
 placeholder="Password">
 
 
-<button id="login-btn" class="add-btn">
+
+<button 
+id="login-btn"
+class="add-btn">
+
 Login
+
 </button>
 
 
-<button id="signup-btn" class="secondary-btn">
+
+<button
+id="signup-btn"
+class="secondary-btn">
+
 Create Account
+
 </button>
+
 
 
 <p id="message"></p>
@@ -72,7 +89,13 @@ Create Account
 
 
 
+
+
+
+<!-- MAIN APP -->
+
 <section id="app-screen" style="display:none;">
+
 
 
 <header>
@@ -86,6 +109,18 @@ Welcome
 </header>
 
 
+
+
+
+
+<!-- HOME -->
+
+<section id="home" class="page active">
+
+
+<h2>Home</h2>
+
+
 <div class="card">
 
 <h3>Remaining</h3>
@@ -93,6 +128,8 @@ Welcome
 <h1>$0.00</h1>
 
 </div>
+
+
 
 
 <div class="card">
@@ -104,26 +141,226 @@ Welcome
 </div>
 
 
+</section>
+
+
+
+
+
+
+
+
+<!-- BILLS -->
+
+<section id="bills" class="page">
+
+
+<h2>Bills</h2>
+
+
+
+<button 
+class="add-btn"
+id="open-bill">
+
++ Add Bill
+
+</button>
+
+
+
+
+
+<div 
+id="bill-form"
+class="card"
+style="display:none;">
+
+
+
+<h3>Add New Bill</h3>
+
+
+
+<input
+id="bill-name"
+placeholder="Bill Name">
+
+
+
+<input
+id="bill-amount"
+type="number"
+placeholder="Amount">
+
+
+
+<input
+id="bill-date"
+type="date">
+
+
+
+<select id="bill-person">
+
+
+<option>
+Armanda
+</option>
+
+
+<option>
+Nick
+</option>
+
+
+<option>
+Both
+</option>
+
+
+</select>
+
+
+
+
+
+<button
+id="save-bill"
+class="add-btn">
+
+Save Bill
+
+</button>
+
+
+
+</div>
+
+
+
+
+
+<div id="bill-list">
+
+</div>
+
+
+</section>
+
+
+
+
+
+
+
+
+<!-- CALENDAR -->
+
+<section id="calendar" class="page">
+
+
+<h2>Calendar</h2>
+
+
+
+<div class="card">
+
+<p>Your bills will appear here.</p>
+
+</div>
+
+
+</section>
+
+
+
+
+
+
+
+
+<!-- SETTINGS -->
+
+<section id="settings" class="page">
+
+
+<h2>Settings</h2>
+
+
+
+<div class="card">
+
+
+<h3 id="account-name">
+
+Account
+
+</h3>
+
+
+
+<button
+id="logout-btn"
+class="secondary-btn">
+
+Logout
+
+</button>
+
+
+
+</div>
+
+
+</section>
+
+
+
+
+
+
+
+<!-- NAVIGATION -->
+
 
 <nav>
 
-<button>
+
+<button onclick="showPage('home')">
+
 🏠
+
 </button>
 
-<button>
+
+
+<button onclick="showPage('bills')">
+
 💳
+
 </button>
 
-<button>
+
+
+<button onclick="showPage('calendar')">
+
 📅
+
 </button>
 
-<button>
+
+
+<button onclick="showPage('settings')">
+
 ⚙️
+
 </button>
+
 
 </nav>
+
+
 
 
 </section>
@@ -131,6 +368,9 @@ Welcome
 
 
 </div>
+
+
+
 
 
 <script type="module" src="script.js"></script>

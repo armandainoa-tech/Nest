@@ -2,11 +2,11 @@
 
 import { auth, db } from "./firebase.js";
 
-
 import {
     createUserWithEmailAndPassword,
     signInWithEmailAndPassword,
-    onAuthStateChanged
+    onAuthStateChanged,
+    signOut
 } from "https://www.gstatic.com/firebasejs/12.16.0/firebase-auth.js";
 
 
@@ -18,7 +18,9 @@ import {
     addDoc,
     onSnapshot,
     query,
-    orderBy
+    orderBy,
+    updateDoc,
+    deleteDoc
 } from "https://www.gstatic.com/firebasejs/12.16.0/firebase-firestore.js";
 
 
@@ -39,23 +41,16 @@ const appScreen = document.getElementById("app-screen");
 
 
 
-let currentUser = null;
-
-
-
-
 
 // CREATE ACCOUNT
 
 signupBtn.addEventListener("click", async () => {
-
 
     const email = emailInput.value;
     const password = passwordInput.value;
 
 
     try {
-
 
         const userCredential =
         await createUserWithEmailAndPassword(
@@ -69,14 +64,14 @@ signupBtn.addEventListener("click", async () => {
 
 
         await setDoc(
-            doc(db, "users", user.uid),
+            doc(db,"users",user.uid),
             {
 
-                name: "Armanda",
+                name:"Armanda",
 
-                household: "Nest",
+                household:"Nest",
 
-                email: email
+                email:email
 
             }
         );
@@ -86,16 +81,12 @@ signupBtn.addEventListener("click", async () => {
         "Nest account created 🏡";
 
 
-    }
-
-
-    catch(error){
+    } catch(error){
 
         message.innerText =
         error.message;
 
     }
-
 
 });
 
@@ -107,7 +98,7 @@ signupBtn.addEventListener("click", async () => {
 
 // LOGIN
 
-loginBtn.addEventListener("click", async () => {
+loginBtn.addEventListener("click", async()=>{
 
 
     const email = emailInput.value;
@@ -116,7 +107,7 @@ loginBtn.addEventListener("click", async () => {
 
 
 
-    try {
+    try{
 
 
         await signInWithEmailAndPassword(
@@ -130,10 +121,7 @@ loginBtn.addEventListener("click", async () => {
         "Welcome back 🏡";
 
 
-    }
-
-
-    catch(error){
+    }catch(error){
 
 
         message.innerText =
@@ -151,15 +139,14 @@ loginBtn.addEventListener("click", async () => {
 
 
 
+
+
 // AUTH CHECK
 
 onAuthStateChanged(auth, async(user)=>{
 
 
     if(user){
-
-
-        currentUser = user;
 
 
         loginScreen.style.display="none";
@@ -182,11 +169,18 @@ onAuthStateChanged(auth, async(user)=>{
             userSnap.data();
 
 
+
             document.getElementById("user-name")
             .innerText =
             "Welcome, "
             + data.name
             + " 🏡";
+
+
+
+            document.getElementById("account-name")
+            .innerText =
+            data.name;
 
 
         }
@@ -197,8 +191,6 @@ onAuthStateChanged(auth, async(user)=>{
 
 
     }
-
-
 
     else{
 
@@ -211,7 +203,6 @@ onAuthStateChanged(auth, async(user)=>{
     }
 
 
-
 });
 
 
@@ -222,7 +213,40 @@ onAuthStateChanged(auth, async(user)=>{
 
 
 
-// BILL FORM
+// LOGOUT
+
+
+const logoutBtn =
+document.getElementById("logout-btn");
+
+
+
+if(logoutBtn){
+
+
+logoutBtn.addEventListener(
+"click",
+async()=>{
+
+
+await signOut(auth);
+
+
+});
+
+
+}
+
+
+
+
+
+
+
+
+
+// OPEN BILL FORM
+
 
 const openBill =
 document.getElementById("open-bill");
@@ -255,7 +279,10 @@ billForm.style.display="block";
 
 
 
+
+
 // SAVE BILL
+
 
 const saveBill =
 document.getElementById("save-bill");
@@ -312,7 +339,6 @@ paidBy:person
 
 }
 
-
 );
 
 
@@ -337,7 +363,9 @@ billForm.style.display="none";
 
 
 
+
 // LOAD BILLS
+
 
 function loadBills(){
 
@@ -362,6 +390,7 @@ orderBy("dueDate")
 
 
 
+
 onSnapshot(q,(snapshot)=>{
 
 
@@ -373,11 +402,11 @@ list.innerHTML="";
 
 
 
-snapshot.forEach((doc)=>{
+snapshot.forEach((item)=>{
 
 
 const bill =
-doc.data();
+item.data();
 
 
 
@@ -389,21 +418,42 @@ div.className="bill";
 
 
 
-div.innerHTML=`
+div.innerHTML = `
+
 
 <h3>${bill.name}</h3>
+
 
 <p>
 $${bill.amount}
 </p>
 
+
 <p>
 Due: ${bill.dueDate}
 </p>
 
+
 <p>
 Paid by: ${bill.paidBy}
 </p>
+
+
+
+<button onclick="togglePaid('${item.id}', ${bill.paid})">
+
+${bill.paid ? "✅ Paid" : "⬜ Mark Paid"}
+
+</button>
+
+
+
+<button onclick="deleteBill('${item.id}')">
+
+🗑 Delete
+
+</button>
+
 
 `;
 
@@ -416,8 +466,111 @@ list.appendChild(div);
 });
 
 
-
 });
 
 
 }
+
+
+
+
+
+
+
+
+
+// MARK PAID
+
+
+async function togglePaid(id,status){
+
+
+await updateDoc(
+
+doc(
+db,
+"households",
+"Nest",
+"bills",
+id
+),
+
+{
+
+
+paid:!status
+
+
+}
+
+);
+
+
+}
+
+
+
+
+
+
+
+
+
+// DELETE BILL
+
+
+async function deleteBill(id){
+
+
+await deleteDoc(
+
+doc(
+db,
+"households",
+"Nest",
+"bills",
+id
+)
+
+);
+
+
+}
+
+
+
+
+
+
+
+
+// PAGE SWITCHING
+
+
+function showPage(page){
+
+
+document.querySelectorAll(".page")
+.forEach(section=>{
+
+
+section.classList.remove("active");
+
+
+});
+
+
+
+document.getElementById(page)
+.classList.add("active");
+
+
+}
+
+
+
+window.showPage = showPage;
+
+window.togglePaid = togglePaid;
+
+window.deleteBill = deleteBill;
