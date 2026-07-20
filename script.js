@@ -35,6 +35,8 @@ const email = document.getElementById("email");
 
 const password = document.getElementById("password");
 
+const nestCodeInput = document.getElementById("nest-code");
+
 
 const loginBtn = document.getElementById("login-btn");
 const signupBtn = document.getElementById("signup-btn");
@@ -70,6 +72,17 @@ const user = userCredential.user;
 
 
 
+let householdID = "Nest";
+
+
+if(nestCodeInput.value.trim() === "NEST2026"){
+
+    householdID = "Nest";
+
+}
+
+
+
 await setDoc(
 
 doc(db,"users",user.uid),
@@ -80,7 +93,27 @@ name:nameInput.value,
 
 email:user.email,
 
-household:"Nest"
+householdID: householdID
+
+}
+
+);
+
+
+
+await setDoc(
+
+doc(
+db,
+"households",
+householdID,
+"members",
+user.uid
+),
+
+{
+
+name:nameInput.value
 
 }
 
