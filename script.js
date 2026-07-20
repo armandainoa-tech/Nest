@@ -202,7 +202,7 @@ userSnap.data();
 document.getElementById("user-name")
 .innerText =
 "Welcome, "
-+ data.name;
++ (data.name || "Armanda");
 
 
 
