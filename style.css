@@ -1,0 +1,252 @@
+* {
+    box-sizing: border-box;
+    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", Arial, sans-serif;
+}
+
+
+body {
+
+    margin: 0;
+    background: #070707;
+    color: #ffffff;
+
+}
+
+
+.app {
+
+    max-width: 500px;
+    min-height: 100vh;
+    margin: auto;
+    padding: 20px;
+    padding-bottom: 100px;
+
+}
+
+
+/* Header */
+
+header {
+
+    text-align: center;
+    margin-top: 20px;
+
+}
+
+
+header h1 {
+
+    letter-spacing: 6px;
+    font-size: 32px;
+    margin-bottom: 5px;
+
+    text-shadow:
+    0 0 10px rgba(0,255,255,.6);
+
+}
+
+
+header p {
+
+    color: #888;
+    margin-top: 0;
+
+}
+
+
+
+/* Pages */
+
+.page {
+
+    display: none;
+
+}
+
+
+.page.active {
+
+    display: block;
+
+}
+
+
+
+/* Cards */
+
+.card {
+
+    background: #111111;
+
+    border: 1px solid #222;
+
+    border-radius: 20px;
+
+    padding: 20px;
+
+    margin-top: 20px;
+
+
+    box-shadow:
+
+    0 0 15px rgba(0,255,255,.08);
+
+}
+
+
+
+.card h1 {
+
+    font-size: 38px;
+
+    margin: 10px 0;
+
+}
+
+
+.card h3 {
+
+    color:#aaa;
+
+    font-weight:400;
+
+}
+
+
+
+/* Add Button */
+
+.add-btn {
+
+    width:100%;
+
+    margin-top:20px;
+
+    padding:16px;
+
+    border-radius:18px;
+
+    border:none;
+
+    background:#00ffff;
+
+    color:#000;
+
+    font-size:16px;
+
+    font-weight:bold;
+
+    box-shadow:
+
+    0 0 15px rgba(0,255,255,.5);
+
+}
+
+
+
+/* Bottom Navigation */
+
+nav {
+
+    position:fixed;
+
+    bottom:20px;
+
+    left:50%;
+
+    transform:translateX(-50%);
+
+
+    width:90%;
+
+    max-width:450px;
+
+
+    background:#111;
+
+
+    border:
+
+    1px solid #222;
+
+
+    border-radius:30px;
+
+
+    padding:12px;
+
+
+    display:flex;
+
+    justify-content:space-around;
+
+
+    box-shadow:
+
+    0 0 20px rgba(0,255,255,.15);
+
+}
+
+
+
+nav button {
+
+    background:none;
+
+    border:none;
+
+    font-size:24px;
+
+    cursor:pointer;
+
+}
+
+
+/* Small futuristic glow */
+
+button:active {
+
+    transform:scale(.95);
+
+}
+
+input {
+
+width:100%;
+
+padding:15px;
+
+margin-top:15px;
+
+background:#111;
+
+border:1px solid #333;
+
+border-radius:15px;
+
+color:white;
+
+font-size:16px;
+
+}
+
+
+.secondary-btn {
+
+width:100%;
+
+margin-top:15px;
+
+padding:15px;
+
+border-radius:15px;
+
+background:#151515;
+
+border:1px solid #00ffff;
+
+color:white;
+
+font-weight:bold;
+
+}

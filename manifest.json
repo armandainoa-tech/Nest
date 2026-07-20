@@ -1,0 +1,10 @@
+{
+  "name": "Nest 🏡",
+  "short_name": "Nest",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#070707",
+  "theme_color": "#00ffff",
+  "description": "A shared home budget app for Armanda & Nick",
+  "icons": []
+}
